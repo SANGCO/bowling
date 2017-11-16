@@ -87,6 +87,9 @@ public class Frame {
 	
 	public void saveRollScore(int pinsDown) {
 		rolls.add(roll, pinsDown);
+		int lastRoll = 0; 
+		if(roll-1 > 0) lastRoll = rolls.get(roll-1);
+		PrintScore.printScoreBored(frame, pinsDown, isSameFrame, lastRoll);
 		return;
 	}
 	
@@ -95,6 +98,7 @@ public class Frame {
 		if(frame-1 >= 0) localSubTotal = score.get(frame-1);
 		int localscore = localSubTotal + rolls.get(roll-1) + rolls.get(roll);
 		score.add(frame, localscore);
+		PrintScore.printTotalScore(frame, localscore);
 		return;
 	}
 	
@@ -103,6 +107,7 @@ public class Frame {
 		if(frame-2 >= 0) localSubTotal = score.get(frame-2);
 		int localscore = localSubTotal + 10 + rolls.get(roll-1) + rolls.get(roll);
 		score.add(frame-1, localscore);
+		PrintScore.printTotalScore(frame-1, localscore);
 		strike = 0;
 		return;
 	}
@@ -115,6 +120,7 @@ public class Frame {
 			if(strike-2 > i) localscore = localSubTotal + 30;
 			if(strike-2 == i) localscore = localSubTotal + 20 + rolls.get(roll);
 			score.add(frame-(strike-i), localscore);
+			PrintScore.printTotalScore(frame-(strike-i), localscore);
 		}
 		strike = 1;
 		return;
@@ -124,6 +130,7 @@ public class Frame {
 		int localSubTotal = score.get(frame-2);
 		int localscore = localSubTotal + 10 + rolls.get(roll);
 		score.add(frame-1, localscore);
+		PrintScore.printTotalScore(frame-1, localscore);
 		spare = false;
 		return;
 	}
