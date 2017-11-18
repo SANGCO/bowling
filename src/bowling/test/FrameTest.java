@@ -1,9 +1,11 @@
-package bowling;
+package bowling.test;
 
 import static org.junit.jupiter.api.Assertions.*;
 
 import org.junit.Before;
 import org.junit.jupiter.api.Test;
+
+import bowling.Frame;
 
 class FrameTest {
 
@@ -15,8 +17,7 @@ class FrameTest {
 	}
 	
 	@Test
-	public void roll() {
-		//assertEquals(expected, actual);
-	}
+	public void methodRollTest() {
 
+	}
 }

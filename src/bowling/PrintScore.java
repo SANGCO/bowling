@@ -6,6 +6,7 @@ import java.util.Scanner;
 public class PrintScore {
 
 	public static String userName;
+	public static int strikeNumb = 0;
 	
 	public static String input() {
 		Scanner scan = new Scanner(System.in);
@@ -31,8 +32,24 @@ public class PrintScore {
 	
 	public static void printScoreBored(int frame, int pinsDown, boolean isSameFrame, int lastRoll) {
 		int addSpace = 10 + (frame * 7);
-		
 		if(pinsDown == 10) scoreBoard.replace(addSpace, addSpace+1, "X");
+
+		if(isSameFrame == false) {
+			if(pinsDown < 10) scoreBoard.replace(addSpace, addSpace+1, String.valueOf(pinsDown));
+		}
+		
+		if(isSameFrame) {
+			if(lastRoll + pinsDown == 10) scoreBoard.replace(addSpace+1, addSpace+3, "|/");
+			if(lastRoll + pinsDown < 10) scoreBoard.replace(addSpace+1, addSpace+3, "|"+String.valueOf(pinsDown));
+			if(lastRoll + pinsDown < 10 && pinsDown == 0) scoreBoard.replace(addSpace+1, addSpace+3, "|-");
+		}
+	}
+	
+	public static void printScoreBoredLastFrame(int frame, int pinsDown, boolean isSameFrame, int lastRoll) {
+		int addSpace = 72;
+		if(pinsDown == 10 && strikeNumb == 1) scoreBoard.replace(addSpace+strikeNumb, addSpace+strikeNumb+2, "|X");
+		if(pinsDown == 10 && strikeNumb == 2) scoreBoard.replace(addSpace+strikeNumb+1, addSpace+strikeNumb+3, "|X");
+		if(pinsDown == 10) scoreBoard.replace(addSpace, addSpace+1, "X"); strikeNumb++;
 		
 		if(isSameFrame == false) {
 			if(pinsDown < 10) scoreBoard.replace(addSpace, addSpace+1, String.valueOf(pinsDown));
@@ -47,7 +64,8 @@ public class PrintScore {
 	
 	public static void printTotalScore(int frame, int totalScore) {
 		int addSpace = 10 + (frame * 7);
-		scoreTotal.replace(addSpace,   (totalScore < 100) ? addSpace+2 : addSpace+3,   String.valueOf(totalScore));
+		if(totalScore < 10) scoreTotal.replace(addSpace, addSpace+1, String.valueOf(totalScore));
+		if(totalScore > 10) scoreTotal.replace(addSpace,   (totalScore < 100) ? addSpace+2 : addSpace+3,   String.valueOf(totalScore));
 	}
 	
 	public static void printScore() {
@@ -55,6 +73,4 @@ public class PrintScore {
 		System.out.println(scoreBoard);
 		System.out.println(scoreTotal);
 	}
-	
-	
 }
