@@ -33,13 +33,11 @@ public class LastFrame extends Frame {
 		if(spare) saveSpareScore(); // 이전 프레임이 스페어면 여기서 이전 프레임 총점을 계산 해야한다.
 		if(strike == 3) saveMultiStrikeScore(); 
 		nextFrame();
-		return;
 	}
 	
 	@Override
 	public void isSpare() {
 		saveFrameScore(); 
-		return;
 	}
 	
 /*-------------------------------------------------------------------*/
@@ -49,7 +47,6 @@ public class LastFrame extends Frame {
 		rolls.add(roll, pinsDown);
 		int lastRoll = rolls.get(roll-1);
 		PrintScore.printScoreBoredLastFrame(frame, pinsDown, isSameFrame, lastRoll);
-		return;
 	}
 	
 	@Override
@@ -58,7 +55,6 @@ public class LastFrame extends Frame {
 		int localscore = localSubTotal + rolls.get(roll-1) + rolls.get(roll);
 		score.add(frame, localscore);
 		PrintScore.printTotalScore(frame, localscore);
-		return;
 	}
 	
 	@Override
@@ -68,7 +64,6 @@ public class LastFrame extends Frame {
 		score.add(frame-1, localscore);
 		PrintScore.printTotalScore(frame-1, localscore);
 		strike = 0;
-		return;
 	}
 	
 	@Override
@@ -76,7 +71,6 @@ public class LastFrame extends Frame {
 		int localscore = score.get(8) + 30;
 		score.add(9, localscore);
 		PrintScore.printTotalScore(9, localscore);
-		return;
 	}
 	
 	@Override
@@ -86,6 +80,5 @@ public class LastFrame extends Frame {
 		score.add(frame-1, localscore);
 		PrintScore.printTotalScore(frame-1, localscore);
 		spare = false;
-		return;
 	}
 }

@@ -23,7 +23,6 @@ public class Frame {
 		if(pinsDown < 10) {
 			NotStrike();
 		}
-		return;
 	}
 	
 	public void Strike() {
@@ -31,14 +30,12 @@ public class Frame {
 		if(strike == 9) saveStrikeAll(); // 로직은 연속 스트라이크가 깨져야 점수가 계산되는 시스템이라 부득이하게 따로 분리
 		if(spare) saveSpareScore(); // 이전 프레임이 스페어면 여기서 이전 프레임 총점을 계산 해야한다.
 		nextFrame();
-		return;
 	}
 	
 	public void NotStrike() {
 		// 스트라이크가 아니라면 프레임의 첫번째 시도인지 두번째 시도인지 분기 해야한다.
 		if(isSameFrame != true) FrameHasNextRoll(); // isSameFrame이 false이면 첫번째 시도임
 		else if(isSameFrame == true) isSpare(); // 두번째 시도라면 스페어인지 아닌지를 알아봐야 한다.
-		return;
 	}
 	
 /*-------------------------------------------------------------------*/
@@ -50,7 +47,6 @@ public class Frame {
 		// 스페어가 아니라면 이번 프레임의 점수는 여기서 바로 계산되어야 한다.
 		if((rolls.get(roll-1) + rolls.get(roll)) < 10) saveFrameScore(); 
 		nextFrame(); 
-		return;
 	}
 	
 	public void FrameHasNextRoll() {
@@ -60,14 +56,12 @@ public class Frame {
 		// 이전 프레임이 스페어인 경우도 여기서 점수 계산이 되어야 한다.
 		if(spare) saveSpareScore();
 		roll++;
-		return;
 	}
 	
 	public void nextFrame() {
 		frame++;
 		roll++;
 		isSameFrame = false;
-		return;
 	}
 	
 /*-------------------------------------------------------------------*/
@@ -77,7 +71,6 @@ public class Frame {
 		int lastRoll = 0; 
 		if(roll-1 >= 0) lastRoll = rolls.get(roll-1);
 		PrintScore.printScoreBored(frame, pinsDown, isSameFrame, lastRoll);
-		return;
 	}
 	
 	public void saveFrameScore() {
@@ -86,7 +79,6 @@ public class Frame {
 		int localscore = localSubTotal + rolls.get(roll-1) + rolls.get(roll);
 		score.add(frame, localscore);
 		PrintScore.printTotalScore(frame, localscore);
-		return;
 	}
 	
 	public void saveSpareScore() {
@@ -96,7 +88,6 @@ public class Frame {
 		score.add(frame-1, localscore); // 스페어가 난 프레임의 점수 계산이니 frame-1
 		PrintScore.printTotalScore(frame-1, localscore);
 		spare = false; // 저장하고 나면 스페어를 다시 false로
-		return;
 	}
 	
 	public void saveStrikeScore() {
@@ -107,7 +98,6 @@ public class Frame {
 		score.add(frame-1, localscore);
 		PrintScore.printTotalScore(frame-1, localscore); // 현제 프레임보다 하나 이전 프레임에 대한 계산 frame-1
 		strike = 0;
-		return;
 	}
 	
 	public void saveMultiStrikeScore() {
@@ -126,7 +116,6 @@ public class Frame {
 			PrintScore.printTotalScore(frame-(strike-i), localscore);
 		}
 		strike = 1;
-		return;
 	}
 	
 	public void saveStrikeAll() {
