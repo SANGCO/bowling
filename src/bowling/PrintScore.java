@@ -1,6 +1,7 @@
 package bowling;
 
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 public class PrintScore {
@@ -8,21 +9,30 @@ public class PrintScore {
 	public static String userName;
 	public static int strikeNumb = 0;
 	
-	public static String input() {
+	public static int input() {
 		Scanner scan = new Scanner(System.in);
-		String inputString = scan.nextLine();
-		return inputString;
+		int input = 0;
+		
+		while(true) {
+			try {
+				input = scan.nextInt();
+				return input;
+			} catch (InputMismatchException e) {
+				scan = new Scanner(System.in);
+				System.out.println("숫자를 다시 입력해 주세용.");
+			}
+		}	
 	}
 
 	public static void inputUserName() {
 		System.out.print("플레이어 이름은(3 english letters)?: ");
-		userName = input();
+		Scanner scan = new Scanner(System.in);
+		userName = scan.nextLine();
 	}
 	
 	public static int inputScore() {
 		System.out.print(userName+"'s score : ");
-		String userScoreString = input();
-		int userScoreInteger = Integer.parseInt(userScoreString);
+		int userScoreInteger = input();
 		return userScoreInteger;
 	}
 	
